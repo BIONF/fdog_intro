@@ -1,21 +1,38 @@
-# fdog_intro
+# Introduction to the targeted orthologs search using fDOG
 
-ToDo: write project description
+This tutorial is a 2 hours intro into the generation of phylogenetic profiles using a targeted ortholog search. It combines the search for two plant cell wall degrading enzymes in ca. 100 gene sets as well as in two unannotated genome assemblies. The latter requires fDOG-Assembly and it is an optional part of the analysis.
 
-## How to use
+![workflow](docs/fdog_workflow.jpg)
 
-You can now create a workspace for each of your analyses using:
+**Figure 1: Workflow of fDOG.** Taken from [Tran et al. 2025](https://pmc.ncbi.nlm.nih.gov/articles/PMC12198962/).
 
-```
-cd analyses
-cookiecutter bionf_cookiecutter --directory="analysis"
-```
+## Software Requirements
 
-As soon as an analysis generated a "milestone", 
-i.e. figures, tables, or files that will be used in other analyses
-save them in the milestones/ directory of the project.
+* Jupyter Notebook
+* Docker
 
-Once you are finished with an analysis, 
-add corresponding rules to the snakemake file of the project.
+## How to follow this Tutorial
 
-Don't forget to sync this project to GitHub. 
+Open the `cellulase_comparison.ipynb` notebook in this directory using Jupyter. It will take you through all the steps of this tutorial. 
+
+
+## Workpackages
+
+1. Download data (15 min)
+2. Activate Docker image (10 min)
+3. Run fDOG for targeted ortholog search in gene sets (15 min)
+5. Access G-NOM (10 min)
+6. Upload results to PhyloProfile (15 min)
+7. Analyses (60 min)
+
+### Analyses
+
+1. Identify species with deviating enzyme repertoires (15 min)
+2. Assess the feature architecture similarity between seed proteins and orthologs (30 min)
+3. Assess the taxonomic assignment of candidate orthologs as well as their placement in the genome assembly (15 min)
+
+
+# Literature
+
+You can find a selected list of publications in the `docs/` directory. 
+
