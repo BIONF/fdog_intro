@@ -2,7 +2,7 @@
 
 This tutorial is a 2 hours intro into the generation of phylogenetic profiles using a targeted ortholog search. It combines the search for two plant cell wall degrading enzymes in ca. 100 gene sets as well as in two unannotated genome assemblies. The latter requires fDOG-Assembly and it is an optional part of the analysis.
 
-![workflow](docs/fdog_workflow.jpg)
+![workflow](docs/figures/fdog_workflow.jpg)
 
 **Figure 1: Workflow of fDOG.** Taken from [Tran et al. 2025](https://pmc.ncbi.nlm.nih.gov/articles/PMC12198962/).
 
@@ -13,7 +13,7 @@ This tutorial is a 2 hours intro into the generation of phylogenetic profiles us
 
 ## How to follow this Tutorial
 
-Open the `cellulase_comparison.ipynb` notebook in this directory using Jupyter. It will take you through all the steps of this tutorial. 
+Open the `cellulase_comparison.ipynb` notebook in this directory using Jupyter. It will take you through all steps of this tutorial. 
 
 
 ## Workpackages
@@ -21,9 +21,9 @@ Open the `cellulase_comparison.ipynb` notebook in this directory using Jupyter. 
 1. Download data (15 min)
 2. Activate Docker image (10 min)
 3. Run fDOG for targeted ortholog search in gene sets (15 min)
-5. Access G-NOM (10 min)
-6. Upload results to PhyloProfile (15 min)
-7. Analyses (60 min)
+4. Access G-NOM (10 min)
+5. Upload results to PhyloProfile (15 min)
+6. Analyses (60 min)
 
 ### Analyses
 
@@ -34,5 +34,5 @@ Open the `cellulase_comparison.ipynb` notebook in this directory using Jupyter. 
 
 # Literature
 
-You can find a selected list of publications in the `docs/` directory. 
+You can find a selected list of publications in the `docs/literature` directory. 
 
