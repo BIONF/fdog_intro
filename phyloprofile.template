@@ -1,0 +1,54 @@
+#!/bin/bash
+# Launch the PhyloProfile Shiny app so it is reachable through JupyterHub.
+#
+#   phyloprofile [port]      # default 8050
+#
+# jupyter-server-proxy exposes any port the container listens on under
+# <hub-prefix>/proxy/<port>/, so the app is reached from the participant's own
+# browser; nothing graphical runs in the container.
+#
+# launchBrowser MUST be disabled: PhyloProfile >= 2.x defaults launch.browser
+# to TRUE, and in a headless container the resulting utils::browseURL() call
+# dies with "'browser' must be a non-empty character string" right after
+# "Listening on ..." (found by Ingo, 2026-09-01). The supported switch is the
+# launchBrowser key of runPhyloProfile's configFile, so a minimal config is
+# written per run. An upstream patch making launch.browser default to
+# interactive() was sent to Ingo (scratch: phyloprofile-headless.patch).
+set -euo pipefail
+
+PORT="${1:-8050}"
+PREFIX="${JUPYTERHUB_SERVICE_PREFIX:-/}"
+
+CFG="$(mktemp --suffix=.yml)"
+trap 'rm -f "$CFG"' EXIT
+cat > "$CFG" <<EOF
+mainInput: "/path/to/eccb_bionf.phyloprofile"
+domainInput: "/path/to/eccb_bionf_forward.domains"
+fastaInput: "/path/to/eccb_bionf.extended.fa"
+refspec: "Rhizoctonia solani"
+geneName: "/usr/data/fdog_data/gene_name.txt"
+host: "0.0.0.0"
+port: ${PORT}
+launchBrowser: false
+EOF
+
+# The container cannot know its public address (JupyterHub exposes only path
+# variables, and the deployment IP has already changed once), so print the
+# path with replace-in-address-bar instructions instead of a fake full URL.
+echo "Starting PhyloProfile on port ${PORT}"
+echo
+echo "  In your browser, take your JupyterLab address and replace everything"
+echo "  after the host with this path:"
+echo
+echo "      ${PREFIX%/}/proxy/${PORT}/"
+echo
+echo "  (e.g. if JupyterLab is at   http://<hub-address>${PREFIX%/}/lab"
+echo "   then open                  http://<hub-address>${PREFIX%/}/proxy/${PORT}/ )"
+echo
+echo "  Stop it with Ctrl-C (or 'Interrupt Kernel' if run from a notebook cell)."
+echo
+
+exec /opt/eccb/envs/phyloprofile/bin/Rscript -e "
+  library(PhyloProfile)
+  runPhyloProfile(configFile = '${CFG}')
+"
